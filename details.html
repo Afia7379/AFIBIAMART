@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url(pic/bck2.jpg);
+            text-align: center;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 2px;
+            background: rgba(25, 43, 80, 0.812);
+            text-align: center;
+        }
+
+        
+
+        header img {
+            height: 50px;
+            width: auto;
+            border-radius: 50%;
+            /* Ensuring it stays small enough for mobile */
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 18px;
+            }
+            header img {
+                height: 40px; /* Adjusting logo size for smaller screens */
+            }
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .product-details img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .product-info {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .product-info h2 {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .product-info p {
+            margin: 5px 0;
+        }
+
+        .product-info .highlight {
+            color: #d9534f;
+        }
+
+        /* Related Images Section */
+        .related-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .related-images img {
+            margin: 10px;
+            max-width: 150px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .related-images img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Full-Screen Image Styling */
+        .full-screen-image {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 10;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .full-screen-image img {
+            max-height: 90%;
+            max-width: 90%;
+            margin-top: 50px;
+        }
+
+        .full-screen-image span {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="pic/logo.jpg" alt="Logo">
+        <h1>Product Details</h1>
+    </header>
+
+    <section>
+        <div class="product-details">
+            <img id="productImage" src="pic/bangles/2024071320300798.jpg" alt="Main Product Image">
+            <div class="product-info">
+                <h2 id="productName">Product Name</h2>
+                <p id="productPrice">Price: </p>
+                <p id="productColor">Color: </p>
+                <p id="productSize">Size: </p>
+                <p id="productGuarantee" class="highlight">Color Guarantee: </p>
+            </div>
+        </div>
+
+        <!-- Related Images Section -->
+        <h2>Related Images</h2>
+        <div class="related-images" id="relatedImages">
+            <!-- Related images will be inserted here dynamically -->
+        </div>
+    </section>
+
+    <!-- Full-Screen Image Viewer -->
+    <div id="fullScreenImage" class="full-screen-image">
+        <span onclick="closeFullScreenImage()">&times;</span>
+        <img id="fullImg">
+    </div>
+
+    <script>
+        // Sample data for different bangles
+        const products = {
+            "bng1": {
+                name: "Dimond cut Bangle",
+                price: "1150tk",
+                color: "silver,dark blue",
+                size: "small(2.3 inches), medium(2.5 inches)",
+                guarantee: "1 year",
+                mainImage: "pic/bangles/2024071320300798.jpg",
+                relatedImages: [
+                    "pic/bangles/2024071320325047.jpg",
+                ]
+            },
+            "bng2": {
+                name: "Dimond cut Bangle",
+                price: "1120tk",
+                color: "silver",
+                size: " medium(2.4 inches)",
+                guarantee: "1 year",
+                mainImage: "pic/bangles/2024071320410458.jpg",
+                relatedImages: [
+                    "pic/bangles/2024071320442308.jpg",
+                ]
+            },
+            "bng3": {
+                name: "Dimond cut Bangle",
+                price: "1200tk",
+                color: "mullticolor",
+                size: "small(2.3 inches), medium(2.5 inches), large(2.6 inches)",
+                guarantee: "1 year",
+                mainImage: "pic/bangles/2024071320502058.jpg",
+                relatedImages: [
+                    "pic/bangles/2024071320522574.jpg",
+                ]
+            },
+            "bng4": {
+                name: "Stylish Bangle",
+                price: "350tk",
+                color: "black",
+                size: "medium(2.5 inches)",
+                guarantee: "3 months",
+                mainImage: "pic/bangles/b1.jpg",
+                relatedImages: [
+                    "pic/bangles/b2.jpg",
+                ]
+            }
+        };
+
+        // Function to read query parameter
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Function to load product details dynamically
+        function loadProductDetails() {
+            const productId = getQueryParam('product');
+            const product = products[productId];
+
+            if (product) {
+                // Set main product details
+                document.getElementById('productName').innerText = product.name;
+                document.getElementById('productPrice').innerText = `Price: ${product.price}`;
+                document.getElementById('productColor').innerText = `Color: ${product.color}`;
+                document.getElementById('productSize').innerText = `Size: ${product.size}`;
+                document.getElementById('productGuarantee').innerText = `Color Guarantee: ${product.guarantee}`;
+                document.getElementById('productImage').src = product.mainImage;
+
+                // Display related images
+                const relatedImagesContainer = document.getElementById('relatedImages');
+                relatedImagesContainer.innerHTML = ''; // Clear previous images
+                product.relatedImages.forEach(imageSrc => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imageSrc;
+                    imgElement.alt = "Related Image";
+                    imgElement.onclick = function() { showFullScreenImage(imgElement); };
+                    relatedImagesContainer.appendChild(imgElement);
+                });
+            }
+        }
+
+        // Full-Screen Image functionality
+        function showFullScreenImage(img) {
+            var fullImg = document.getElementById("fullImg");
+            fullImg.src = img.src;
+            document.getElementById("fullScreenImage").style.display = "flex";
+        }
+
+        function closeFullScreenImage() {
+            document.getElementById("fullScreenImage").style.display = "none";
+        }
+
+        // Load product details on page load
+        window.onload = loadProductDetails;
+    </script>
+</body>
+</html>

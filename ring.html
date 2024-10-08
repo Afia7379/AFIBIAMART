@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFIBIA MART</title>
+    
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url(pic/bck2.jpg);
+            text-align: center;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 2px;
+            background: rgba(25, 43, 80, 0.812);
+            text-align: center;
+        }
+
+        .logo {
+            flex: 1;
+            margin-right: 88%;
+        }
+
+        .logo img {
+            max-width: 70px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-icon {
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            margin-left: auto;
+            margin-right: 3%;
+            
+        }
+
+        nav {
+            display: none;
+            background-color: #619df7;
+            background:rgba(25, 43, 80, 0.812);
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100%;
+            padding-top: 60px;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            padding: 15px;
+            border-bottom: 1px solid #34495e;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul a:hover {
+            background: white;
+            color: rgba(14, 25, 53, 0.827);
+            padding-left: 20px;
+        }
+
+        /* Product Grid Styling */
+        #earrings {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .product {
+            margin: 10px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 150px;
+        }
+
+        .product img {
+            width: 100%;
+            cursor: pointer;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .product p {
+            margin: 10px 0 0;
+        }
+
+        .product b {
+            color: rgb(163, 19, 19);
+        }
+        .product strike{
+            color: #963096;
+        }
+
+        /* Full-Screen Image Styling */
+        .full-screen-image {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 10;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .full-screen-image img {
+            max-height: 90%;
+            max-width: 90%;
+            margin-top: 50px;
+        }
+
+        .full-screen-image span {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+        }
+        .full-screen-image .prev{
+            position: absolute;
+            top: 50%;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 80%;
+        }
+        /* Next and Previous buttons */
+         .full-screen-image .next {
+            position: absolute;
+            top: 50%;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .full-screen-image .prev {
+            left: 10px;
+        }
+
+        .full-screen-image .next {
+            right: 10px;
+        }
+
+        /* Responsive Navigation Menu */
+        .open {
+            display: block;
+        }
+        @media only screen and (max-width: 600px) {
+    /* Header adjustments for mobile */
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    /* Ensure the logo stays on the left side */
+    .logo {
+        margin-right: auto;  /* Automatically pushes other elements to the right */
+    }
+
+    /* Fix product grid on mobile */
+    #earrings {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .product {
+        margin: 5px;
+        width: 35%;  /* Adjusts the product width to 45% of the screen, so two items fit in a row */
+    }
+
+    .product img {
+        height: auto;
+        object-fit: cover;
+    }
+
+
+
+            .nav-icon {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+
+            <img src="pic/logo.jpg" alt="AFIBIA MART Logo">
+        </div>
+       
+        <span class="nav-icon" onclick="toggleMenu()">&#x22EE;</span>
+    </header>
+
+    <nav id="navMenu">
+        <ul>
+            <a href="index.html">Home</a>
+            <a href="https://wa.me/8801909397475" target="_blank">WhatsApp Contact</a>
+            <a href="front.html">Earrings</a>
+            <a href="brroch.html">Brooch</a>
+            <a href="bangles.html">Bangles</a>
+            
+            <a href="necklaces.html">Necklaces</a>
+            <a href="ring.html">Rings</a>
+        </ul>
+    </nav>
+
+    <section id="earrings">
+          
+        <div class="product">
+            <img src="pic/brooch/2023121818113291.jpg" alt="Earring 1" onclick="showFullScreenImage(this)">
+            <p> Price: <strike> 150tk</strike><br>120tk</p>
+            <p>Available</p>
+            
+        </div>
+        <div class="product">
+            <img src="pic/brooch/2023120800360638.jpg" alt="Earring 2" onclick="showFullScreenImage(this)">
+            <p> Price: <strike> 150tk</strike><br>120tk</p>
+            <p>Available</p>
+            
+        </div>
+        
+        <div class="product">
+            <img src="pic/brooch/2023120800230116.jpg" alt="Earring 2" onclick="showFullScreenImage(this)">
+            <p> Price: <strike> 150tk</strike><br>120tk</p>
+            <p>Available</p>
+            
+        </div>
+        <div class="product">
+            <img src="pic/brooch/2023120800145120.jpg"Earring 1" onclick="showFullScreenImage(this)">
+            <p> Price: <strike> 150tk</strike><br>120tk</p>
+            <p>Available</p>
+            
+        </div>
+        
+      
+    </section>
+        <!-- Your product grid here -->
+    </section>
+
+    <div id="fullScreenImage" class="full-screen-image">
+        <span onclick="closeFullScreenImage()">&times;</span>
+        <img id="fullImg">
+        <span class="prev" onclick="prevImage()">&#10094;</span>
+        <span class="next" onclick="nextImage()">&#10095;</span>
+    </div>
+
+    <script>
+        // Array to store all image sources
+        const images = [];
+        document.querySelectorAll('.product img').forEach((img) => {
+            images.push(img.src);
+        });
+
+        let currentIndex = 0;
+
+        function toggleMenu() {
+            var nav = document.getElementById("navMenu");
+            if (nav.classList.contains("open")) {
+                nav.classList.remove("open");
+            } else {
+                nav.classList.add("open");
+            }
+        }
+
+        function showFullScreenImage(img) {
+            currentIndex = images.indexOf(img.src);
+            var fullImg = document.getElementById("fullImg");
+            fullImg.src = img.src;
+            document.getElementById("fullScreenImage").style.display = "block";
+        }
+
+        function closeFullScreenImage() {
+            document.getElementById("fullScreenImage").style.display = "none";
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+            document.getElementById("fullImg").src = images[currentIndex];
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+            document.getElementById("fullImg").src = images[currentIndex];
+        }
+    </script>
+</body>
+</html>
